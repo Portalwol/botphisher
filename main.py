@@ -179,4 +179,4 @@ async def setup(ctx):
 
 
 
-client.run("MTA5NjI5MjI3MTQ0OTcxODgwNA.GbHzP6.MwhONjBUYTXPl2WsG1CvMYPg-KoblmEqF1Bom8")
+client.run("token")
