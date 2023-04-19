@@ -138,7 +138,7 @@ async def requestcode(interaction):
         #})
 
         try:
-          await page.wait_for_selector('#otcLoginLink', state='visible')
+          await page.wait_for_selector('#otcLoginLink', state='visible', timeout="5000")
           await page.click('#otcLoginLink')
         except Exception as e:
           requests.post(url, json = {
