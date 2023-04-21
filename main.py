@@ -11,7 +11,6 @@ import calendar
 import asyncio
 from playwright.async_api import async_playwright
 #define
-global listofpeople
 listofpeople = []
 
 
