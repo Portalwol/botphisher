@@ -55,6 +55,19 @@ class TicketView(discord.ui.View):
         await channel.set_permissions(channel.guild.default_role, read_messages=False, send_messages=False)
         await interaction.followup.send(f"Ticket created in {channel.mention}", ephemeral=True)
 
+        # Send the initial message with the embedded message and the "Close" button
+        embed = discord.Embed(description="Staff will be with you shortly!")
+        message = await channel.send(embed=embed)
+        await message.add_reaction("❌")
+
+        # Add a listener for the "Close" button to delete the ticket channel
+        def check(reaction, user):
+          return user != client.user and str(reaction.emoji) == "❌" and reaction.message == message
+
+        await client.wait_for("reaction_add", check=check)
+        await channel.delete()
+
+
 class MyModal(discord.ui.Modal):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -311,6 +324,23 @@ async def setupticket(ctx):
           color=discord.Colour.green()
       )
       await ctx.send(embed=embed, view=view)
+
+@client.slash_command(name="close", description="Closes the ticket")
+async def close_ticket(ctx):
+    if isinstance(ctx.channel, discord.channel.DMChannel):
+        await ctx.send("You cannot use this command in DM's!")
+        return
+
+    await ctx.channel.delete()
+
+@client.slash_command(name="add", description="Adds a user to the ticket")
+async def add_member(ctx, member: discord.Member):
+    if isinstance(ctx.channel, discord.channel.DMChannel):
+        await ctx.send("You cannot use this command in DM's!")
+        return
+
+    await ctx.channel.set_permissions(member, read_messages=True, send_messages=True)
+    await ctx.send(f"Added {member.mention} to the ticket")
 
 @client.slash_command(name="setupserver", description="tshi will delete all chanenl in server.")
 async def setup(ctx):
