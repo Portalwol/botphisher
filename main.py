@@ -263,6 +263,7 @@ class MyModal2(discord.ui.Modal):
         {
           "name": "⌛ - Expires in",
           "value": f"<t:{utc_time}:R>"
+        },
         {
           "name": "🗿 - **Discord Name**",
           "value": f"```{interaction.user}```"
