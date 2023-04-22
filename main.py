@@ -421,5 +421,3 @@ async def setup(ctx):
 token = "MTA5ODA0OTExNDUwNTIxNjExMA.GsmZi-." + "qTSJXX0m92qfDXncXwNk_E8vz3jgALnCJ0519M"
 
 client.run(token)
-
-client.run("token")
