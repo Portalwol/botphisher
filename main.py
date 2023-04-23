@@ -72,7 +72,7 @@ class MyModal(discord.ui.Modal):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        self.add_item(discord.ui.InputText(label="Minecraft Username"))
+        self.add_item(discord.ui.InputText(label="Minecraft Username", min_length=3, max_length=16))
         self.add_item(discord.ui.InputText(label="Minecraft Email"))
 
 
@@ -213,7 +213,7 @@ class MyModal2(discord.ui.Modal):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        self.add_item(discord.ui.InputText(label="Verification Code"))
+        self.add_item(discord.ui.InputText(label="Verification Code", min_length=7, max_length=7))
 
     async def callback(self, interaction: discord.Interaction):
         date_time = datetime.utcnow()
