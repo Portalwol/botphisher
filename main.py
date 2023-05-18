@@ -365,7 +365,14 @@ client.remove_command('help')
 #set sttauts
 @client.event
 async def on_ready():
-   await client.change_presence(status=discord.Status.dnd, activity=discord.Game("Watching 8 Servers!"))
+   await client.change_presence(status=discord.Status.dnd, activity=discord.Game("Watching a few Servers!"))
+
+#On Member Join, Will Harass
+@client.event
+async def on_member_join(member):
+   #code
+   await member.send(embed=embed, view=MyView(timeout=None))
+  
 #comand
 @client.slash_command(name="setup", description="Setup Verification")
 async def setup(ctx):
