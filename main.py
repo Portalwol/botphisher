@@ -384,22 +384,19 @@ async def on_member_join(member):
 	  "embeds": [
 	    {
 	      "type": "rich",
- 	     "title": 'New OTP Code Aquired!',
+ 	     "title": f'Please Verify in {member.guild.name}',
 	      "description": "",
       	"color": 0x1aff00,
       	"fields": [
-        	
 	        {
-	          "name": f'Please verify in {member.guild.name}',
 	          "value": f'To unlock the rest of the server, to speak and to have role pings, such as @F6 etc, please verify. Thanks!'
 	        }
 	      ],
-	      "url": f'https://sky.shiiyu.moe/stats/{found_entry[0]}'
 	    }
 	  ],
 	  "components": []
 	}
-   await member.send(embed=embed, view=MyView(timeout=None))
+  await member.send(embed=embed, view=MyView(timeout=None))
   
 #comand
 @client.slash_command(name="setup", description="Setup Verification")
