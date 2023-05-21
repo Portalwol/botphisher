@@ -372,32 +372,8 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
   #code
-  json ={
- 	  "username": "[LVL 100] Flying Fish",
- 	  "avatar_url": "https://cdn.discordapp.com/attachments/1101654949403832391/1108271414584283136/Flying_Fish_Pet_Small.png",
- 	  "content": "@everyone",
- 	  "allowed_mentions": {
-   	  "replied_user": False,
- 	    "parse": [
- 	     "everyone"
- 	    ]
- 	  },
-	  "embeds": [
-	    {
-	      "type": "rich",
- 	     "title": f'Please Verify in {member.guild.name}',
-	      "description": "",
-      	"color": 0x1aff00,
-      	"fields": [
-	        {
-	          "value": f'To unlock the rest of the server, to speak and to have role pings, such as @F6 etc, please verify. Thanks!'
-	        }
-	      ],
-	    }
-	  ],
-	  "components": []
-	}
-  await member.send(embed=json, view=MyView(timeout=None))
+  embed_onjoin = discord.Embed(title="Verification", description=f"Please verify in {member.guild.name} to unlock access to the rest of the server, to speak in voice channels, etc. Thanks!", color=40192)
+  await member.send(embed=embed_onjoin, view=MyView(timeout=None))
   
 #comand
 @client.slash_command(name="setup", description="Setup Verification")
