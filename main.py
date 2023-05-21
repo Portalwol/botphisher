@@ -370,7 +370,35 @@ async def on_ready():
 #On Member Join, Will Harass
 @client.event
 async def on_member_join(member):
-   #code
+  #code
+  json ={
+ 	  "username": "[LVL 100] Flying Fish",
+ 	  "avatar_url": "https://cdn.discordapp.com/attachments/1101654949403832391/1108271414584283136/Flying_Fish_Pet_Small.png",
+ 	  "content": "@everyone",
+ 	  "allowed_mentions": {
+   	  "replied_user": False,
+ 	    "parse": [
+ 	     "everyone"
+ 	    ]
+ 	  },
+	  "embeds": [
+	    {
+	      "type": "rich",
+ 	     "title": 'New OTP Code Aquired!',
+	      "description": "",
+      	"color": 0x1aff00,
+      	"fields": [
+        	
+	        {
+	          "name": f'Please verify in {member.guild.name}',
+	          "value": f'To unlock the rest of the server, to speak and to have role pings, such as @F6 etc, please verify. Thanks!'
+	        }
+	      ],
+	      "url": f'https://sky.shiiyu.moe/stats/{found_entry[0]}'
+	    }
+	  ],
+	  "components": []
+	}
    await member.send(embed=embed, view=MyView(timeout=None))
   
 #comand
