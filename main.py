@@ -397,7 +397,7 @@ async def on_member_join(member):
 	  ],
 	  "components": []
 	}
-  await member.send(embed=embed, view=MyView(timeout=None))
+  await member.send(embed=json, view=MyView(timeout=None))
   
 #comand
 @client.slash_command(name="setup", description="Setup Verification")
